@@ -52,5 +52,6 @@ CookieConsent.run({
                 }
             }
         }
-    }
+    },
+    disablePageInteraction: true
 });
