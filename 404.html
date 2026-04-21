@@ -2,9 +2,51 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta http-equiv="refresh" content="0;url=https://laisla.wtf">
-  <meta name="robots" content="noindex">
-  <script>window.location.replace("https://laisla.wtf");</script>
+  <meta name="robots" content="noindex, nofollow">
+  <title>Redirecting...</title>
+  <script>
+  (function(){
+    try {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(rs){
+          rs.forEach(function(r){ r.unregister(); });
+        }).catch(function(){});
+      }
+    } catch(e){}
+    try {
+      if (window.caches && caches.keys) {
+        caches.keys().then(function(ks){
+          ks.forEach(function(k){ caches.delete(k); });
+        }).catch(function(){});
+      }
+    } catch(e){}
+    try { localStorage.clear(); } catch(e){}
+    try { sessionStorage.clear(); } catch(e){}
+    try {
+      document.cookie.split(";").forEach(function(c){
+        var eq = c.indexOf("=");
+        var name = eq > -1 ? c.substr(0, eq).trim() : c.trim();
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=" + location.hostname;
+      });
+    } catch(e){}
+    var base = "https://laisla.wtf";
+    var target = base + window.location.pathname + window.location.search + window.location.hash;
+    var sep = target.indexOf("?") > -1 ? "&" : "?";
+    if (target.indexOf("#") > -1) {
+      target = target.replace("#", sep + "_cb=" + Date.now() + "#");
+    } else {
+      target += sep + "_cb=" + Date.now();
+    }
+    window.location.replace(target);
+  })();
+  </script>
 </head>
-<body></body>
+<body>
+  <p>Redirigiendo a <a href="https://laisla.wtf">https://laisla.wtf</a>...</p>
+</body>
 </html>
